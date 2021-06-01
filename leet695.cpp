@@ -14,9 +14,8 @@ public:
             {
                 if(grid[i][j])
                 {
-                    currIsland++;
                     grid[i][j] = 0;
-                    currIsland = measureIsland(grid, i, j);        
+                    currIsland = measureIsland(grid, i, j) + 1;        
                     
                     if(currIsland > retVal)
                     {
@@ -33,22 +32,28 @@ public:
     {
         int total = 0;
         //go right
-        if(i < m && grid[i+1][j])
+        if(j+1 < n && grid[i][j+1])
+        {
+            grid[i][j+1] = 0;
+            total += measureIsland(grid, i, j+1) + 1;
+        }
+        //go down
+        if(i+1 < m && grid[i+1][j])
         {
             grid[i+1][j] = 0;
-            total = measureIsland(grid, i+1, j) + 1;
+            total += measureIsland(grid, i+1, j) + 1;
         }
         //go left
+        if(j > 0 && grid[i][j-1])
+        {
+            grid[i][j-1] = 0;
+            total += measureIsland(grid, i, j-1) + 1;
+        }
+        //go up
         if(i > 0 && grid[i-1][j])
         {
             grid[i-1][j] = 0;
-            total = measureIsland(grid, i-1, j) + 1;
-        }
-        //go down
-        if(j < n && grid[i][j+1])
-        {
-            grid[i][j+1] = 0;
-            total = measureIsland(grid, i, j+1) + 1;
+            total += measureIsland(grid, i-1, j) + 1;
         }
 
         return total;
