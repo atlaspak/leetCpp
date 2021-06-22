@@ -3,52 +3,30 @@ public:
     string licenseKeyFormatting(string s, int k) 
     {
         string retVal = "";
-        int i = 0;
         
         if(s.size() == 0)
         {
             return s;
         }
-        else if(s[0] == '-')
-        {
-            for(i = 1;i < s.size(); i++)
-            {
-                if(s[i] != '-')
-                {
-                    retVal.push_back(caseControl(s[i]));
-                    //retVal.push_back('-');
-                }
-            }
-        }
-        else
-        {
-            for(i=0;i < s.size(); i++)
-            {
-                if(s[i] == '-')
-                {
-                    //retVal.push_back('-');
-                    break;
-                }
-                retVal.push_back(caseControl(s[i]));
-            }
-        }
         
-        for(int j=0; i < s.size(); i++)
+        for(int i = s.size()-1, j = 0; i >= 0; --i)
         {
             if(s[i] == '-')
             {
                 continue;
             }
             else
-            {                
-                if(j % k == 0)
+            {
+                if(j && j % k == 0)
                 {
                     retVal.push_back('-');
                 }
-                retVal.push_back(caseControl(s[i]));
-                j++;
+                retVal.push_back(caseControl(s[i]));                
+                ++j;
             }
         }
+        
+        reverse(retVal.begin(), retVal.end());
         
         return retVal;
     }
