@@ -4,7 +4,7 @@ public:
     {        
         if(cost.size() > 1)
         {        
-            for(int i = 2; i < cost.size(); i++)
+            for(int i = 2; i < cost.size(); ++i)
             {
                 cost[i] = cost[i] + min(cost[i-1] , cost[i-2]);
             }
