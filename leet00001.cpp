@@ -1,27 +1,27 @@
 class Solution {
 public:
-    std::vector<int> twoSum(std::vector<int>& nums, int target)
+    vector<int> twoSum(vector<int>& nums, int target) 
     {
-        std::vector<std::vector<int>> pairs;
-        for(int i = 0; i<nums.size(); i++)
+        unordered_map<int, int> keyIndexMap;
+        int searchFor = 0;
+        vector<int> result(2);
+        for(int i = 0; i < nums.size(); ++i)
         {
-            std::vector<int> pair;
-            
-            if(pairs.size() != 0)
-            {
-                for(int j = 0; j<pairs.size(); j++)
-                {
-                    if(nums.at(pairs.at(j).at(0)) + nums.at(i) == target)
-                    {
-                        pairs.at(j).push_back(i);
-                        return pairs.at(j);
-                    }
-                }
-            }
-            pair.push_back(i);
-            pairs.push_back(pair);
+            keyIndexMap.insert({nums[i], i});
         }
-        std::vector<int> pair(2, 0);
-        return pair;
+        
+        for(int i = 0; i <nums.size(); ++i)
+        {
+            searchFor = target - nums[i];
+            auto val = keyIndexMap.find(searchFor);
+            if(val != keyIndexMap.end() && val->second != i)
+            {
+                result[0] = i;
+                result[1] = val->second;
+                break;
+            }                
+        }
+        
+        return result;        
     }
 };
